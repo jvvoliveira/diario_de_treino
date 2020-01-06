@@ -1,23 +1,28 @@
-import { mongoose } from 'mongoose';
+import Sequelize, { Model } from 'sequelize';
 
-const UserSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  password_hash: {
-    type: String,
-    required: true,
-  },
-  instructor: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-});
+class User extends Model {
+  static init(sequelize) {
+    super.init(
+      {
+        name: {
+          type: Sequelize.STRING,
+        },
+        email: {
+          type: Sequelize.STRING,
+        },
+        password_hash: {
+          type: Sequelize.STRING,
+        },
+        instructor: {
+          type: Sequelize.BOOLEAN,
+          default: false,
+        },
+      },
+      {
+        sequelize,
+      }
+    );
+  }
+}
 
-mongoose.model('User', UserSchema);
+export default User;
