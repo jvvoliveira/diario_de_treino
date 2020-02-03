@@ -24,3 +24,6 @@ yarn-error.log*
 
 #data
 /tmp/uploads
+
+#config database
+/config/database.js
