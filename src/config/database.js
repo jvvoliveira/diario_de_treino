@@ -1,6 +1,6 @@
 module.exports = {
   dialect: 'mysql',
-  host: '172.17.0.2',
+  host: 'localhost',
   username: 'root',
   password: 'root',
   database: 'diario_de_treino',

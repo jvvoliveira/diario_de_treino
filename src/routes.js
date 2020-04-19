@@ -8,6 +8,7 @@ import FileController from './app/controllers/FileController';
 import InstructorController from './app/controllers/InstructorController';
 
 import authMiddlewares from './app/middlewares/auth';
+import RelationshipController from './app/controllers/RelationshipController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -16,6 +17,8 @@ routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddlewares);
+
+routes.post('/add-instructor', RelationshipController.store);
 
 routes.put('/users', UserController.update);
 
