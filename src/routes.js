@@ -20,10 +20,11 @@ routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddlewares);
 
-routes.get('/my-instructors', RelationshipController.index);
-routes.post('/add-instructor', RelationshipController.store);
+routes.get('/instructors', RelationshipController.index);
+routes.post('/instructor', RelationshipController.store);
+routes.delete('/instructor/:id', RelationshipController.delete);
 
-routes.get('/my-students', StudentController.index);
+routes.get('/students', StudentController.index);
 
 routes.put('/users', UserController.update);
 

@@ -90,6 +90,20 @@ class RelationshipController {
 
     return res.json(relationship);
   }
+
+  async delete(req, res) {
+    const relationshipId = req.params.id;
+    const relationship = await Relationship.findByPk(relationshipId);
+
+    if (relationship.user_id !== req.userId) {
+      return res
+        .status(401)
+        .json({ error: "You don't have permission to execute it" });
+    }
+
+    relationship.destroy();
+    return res.json(relationship);
+  }
 }
 
 export default new RelationshipController();
