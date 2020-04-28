@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import Relationship from '../models/Relationship';
 import User from '../models/User';
 import File from '../models/File';
+import Notification from '../schemas/Notification';
 
 const PER_PAGE = 5;
 class RelationshipController {
@@ -45,6 +46,12 @@ class RelationshipController {
 
     const { instructor_id } = req.body;
 
+    if (instructor_id === req.userId) {
+      return res.status(401).json({
+        error: `You can't add you for instructor to yourself`,
+      });
+    }
+
     const isInstructor = await User.findOne({
       where: {
         id: instructor_id,
@@ -72,6 +79,13 @@ class RelationshipController {
     const relationship = await Relationship.create({
       user_id: req.userId,
       instructor_id,
+    });
+
+    const user = await User.findByPk(req.userId);
+
+    await Notification.create({
+      content: `Novo aluno: ${user.name}`,
+      user: instructor_id,
     });
 
     return res.json(relationship);
