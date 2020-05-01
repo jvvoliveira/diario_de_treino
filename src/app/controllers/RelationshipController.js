@@ -101,7 +101,7 @@ class RelationshipController {
         .json({ error: "You don't have permission to execute it" });
     }
 
-    relationship.destroy();
+    await relationship.destroy();
     return res.json(relationship);
   }
 }
