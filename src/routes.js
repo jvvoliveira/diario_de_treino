@@ -13,6 +13,7 @@ import TrainingController from './app/controllers/TrainingController';
 import authMiddlewares from './app/middlewares/auth';
 import RelationshipController from './app/controllers/RelationshipController';
 import StudentController from './app/controllers/StudentController';
+import GroupController from './app/controllers/GroupController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -37,7 +38,9 @@ routes.put('/notifications/:id', NotificationController.update);
 
 routes.get('/exercise/:modality', ExerciseController.index);
 routes.post('/exercise', ExerciseController.store);
-routes.post('/training', TrainingController.store);
+routes.post('/training/:group', TrainingController.store);
+
+routes.post('/group', GroupController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 

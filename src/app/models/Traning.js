@@ -19,6 +19,10 @@ class Training extends Model {
 
     return this;
   }
+
+  static associate(models) {
+    this.belongsTo(models.Group, { foreignKey: 'group_id', as: 'group' });
+  }
 }
 
 export default Training;

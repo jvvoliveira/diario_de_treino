@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import Training from '../models/Traning';
 import ExercisesTrainings from '../models/ExercisesTrainings';
+import Group from '../models/Group';
 
 class TrainingController {
   async store(req, res) {
@@ -23,9 +24,19 @@ class TrainingController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
+    const group_id = req.params.group;
+    const existGroup = await Group.findOne({ where: { id: req.params.group } });
+    if (!existGroup) {
+      return res.status(400).json({ error: 'Group not exists' });
+    }
+
     const { name, executions = 0 } = req.body;
 
-    const { id: training_id } = await Training.create({ name, executions });
+    const { id: training_id } = await Training.create({
+      name,
+      executions,
+      group_id,
+    });
 
     const { exercises } = req.body;
     exercises.forEach(async exercise => {
@@ -39,7 +50,7 @@ class TrainingController {
       });
     });
 
-    return res.status(200).json({ message: 'Sucess' });
+    return res.status(200).json();
   }
 }
 
