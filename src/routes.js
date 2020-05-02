@@ -7,7 +7,8 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import InstructorController from './app/controllers/InstructorController';
 import NotificationController from './app/controllers/NotificationController';
-import ExercicieController from './app/controllers/ExercicieController';
+import ExerciseController from './app/controllers/ExerciseController';
+import TrainingController from './app/controllers/TrainingController';
 
 import authMiddlewares from './app/middlewares/auth';
 import RelationshipController from './app/controllers/RelationshipController';
@@ -34,7 +35,8 @@ routes.get('/instructors', InstructorController.index);
 routes.get('/notifications', NotificationController.index);
 routes.put('/notifications/:id', NotificationController.update);
 
-routes.post('/exercicie', ExercicieController.store);
+routes.post('/exercise', ExerciseController.store);
+routes.post('/training', TrainingController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 

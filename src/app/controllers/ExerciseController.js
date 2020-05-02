@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
-import Exercicie from '../models/Exercicie';
+import Exercise from '../models/Exercise';
 
-class ExercicieController {
+class ExerciseController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -11,16 +11,16 @@ class ExercicieController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const exercicieExists = await Exercicie.findOne({
+    const exerciseExists = await Exercise.findOne({
       where: { name: req.body.name },
     });
-    if (exercicieExists) {
-      return res.status(400).json({ error: 'Exercicie already exists' });
+    if (exerciseExists) {
+      return res.status(400).json({ error: 'Exercise already exists' });
     }
 
-    const { id, name, modality } = await Exercicie.create(req.body);
+    const { id, name, modality } = await Exercise.create(req.body);
     return res.json({ id, name, modality });
   }
 }
 
-export default new ExercicieController();
+export default new ExerciseController();

@@ -9,6 +9,7 @@ class Training extends Model {
         },
         executions: {
           type: Sequelize.INTEGER,
+          defaultValue: 0,
         },
       },
       {
