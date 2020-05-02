@@ -2,6 +2,15 @@ import * as Yup from 'yup';
 import Exercise from '../models/Exercise';
 
 class ExerciseController {
+  async index(req, res) {
+    const { modality } = req.params;
+    const exercises = await Exercise.findAll({
+      where: { modality },
+      attributes: ['id', 'name'],
+    });
+    res.json(exercises);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),

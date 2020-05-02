@@ -35,6 +35,7 @@ routes.get('/instructors', InstructorController.index);
 routes.get('/notifications', NotificationController.index);
 routes.put('/notifications/:id', NotificationController.update);
 
+routes.get('/exercise/:modality', ExerciseController.index);
 routes.post('/exercise', ExerciseController.store);
 routes.post('/training', TrainingController.store);
 
