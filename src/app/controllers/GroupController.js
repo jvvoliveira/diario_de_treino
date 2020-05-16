@@ -1,16 +1,27 @@
 import * as Yup from 'yup';
+import moment from 'moment';
 import Group from '../models/Group';
 import User from '../models/User';
 
-class TrainingController {
+class GroupController {
+  async index(req, res) {
+    const groups = await Group.findAll({
+      where: { user_id: req.userId },
+    });
+
+    return res.json(groups);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       executions: Yup.number(),
       goal: Yup.number(),
-      validity: Yup.date(),
-      // .required()
-      // .test('date is before', value => new Date() < value),
+      validity: Yup.date()
+        .test('date is before', '', function(value) {
+          return moment(value).isAfter(new Date());
+        })
+        .required(),
       user_id: Yup.number(),
       instructor_id: Yup.number(),
     });
@@ -48,4 +59,4 @@ class TrainingController {
   }
 }
 
-export default new TrainingController();
+export default new GroupController();

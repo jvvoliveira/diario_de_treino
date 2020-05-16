@@ -4,6 +4,14 @@ import ExercisesTrainings from '../models/ExercisesTrainings';
 import Group from '../models/Group';
 
 class TrainingController {
+  async index(req, res) {
+    const trainings = await Training.findAll({
+      where: { group_id: req.params.group },
+    });
+
+    return res.json(trainings);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
