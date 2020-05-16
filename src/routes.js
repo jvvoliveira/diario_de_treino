@@ -7,10 +7,14 @@ import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import InstructorController from './app/controllers/InstructorController';
 import NotificationController from './app/controllers/NotificationController';
+import ExerciseController from './app/controllers/ExerciseController';
+import TrainingController from './app/controllers/TrainingController';
 
 import authMiddlewares from './app/middlewares/auth';
 import RelationshipController from './app/controllers/RelationshipController';
 import StudentController from './app/controllers/StudentController';
+import GroupController from './app/controllers/GroupController';
+import ExercisesTrainingsController from './app/controllers/ExercisesTrainingsController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -32,6 +36,15 @@ routes.get('/instructors', InstructorController.index);
 
 routes.get('/notifications', NotificationController.index);
 routes.put('/notifications/:id', NotificationController.update);
+
+routes.get('/exercise/:modality', ExerciseController.index);
+routes.post('/exercise', ExerciseController.store);
+routes.post('/training/:group', TrainingController.store);
+routes.get('/training/:group', TrainingController.index);
+routes.get('/exercises/:training', ExercisesTrainingsController.index);
+
+routes.post('/group', GroupController.store);
+routes.get('/group', GroupController.index);
 
 routes.post('/files', upload.single('file'), FileController.store);
 

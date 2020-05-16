@@ -4,10 +4,22 @@ import mongoose from 'mongoose';
 import User from '../app/models/User';
 import File from '../app/models/File';
 import Relationship from '../app/models/Relationship';
+import Exercise from '../app/models/Exercise';
+import Training from '../app/models/Traning';
+import ExercisesTrainings from '../app/models/ExercisesTrainings';
+import Group from '../app/models/Group';
 
 import databaseConfig from '../config/database';
 
-const models = [User, File, Relationship];
+const models = [
+  User,
+  File,
+  Relationship,
+  Exercise,
+  Training,
+  ExercisesTrainings,
+  Group,
+];
 
 class Database {
   constructor() {
