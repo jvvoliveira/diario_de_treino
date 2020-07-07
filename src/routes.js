@@ -15,6 +15,7 @@ import RelationshipController from './app/controllers/RelationshipController';
 import StudentController from './app/controllers/StudentController';
 import GroupController from './app/controllers/GroupController';
 import ExercisesTrainingsController from './app/controllers/ExercisesTrainingsController';
+import StudentGroupController from './app/controllers/StudentGroupController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -30,6 +31,7 @@ routes.delete('/instructor/:id', RelationshipController.delete);
 
 routes.get('/students', StudentController.index);
 
+routes.get('/users/:user_id', UserController.index);
 routes.put('/users', UserController.update);
 
 routes.get('/instructors', InstructorController.index);
@@ -45,6 +47,8 @@ routes.get('/exercises/:training', ExercisesTrainingsController.index);
 
 routes.post('/group', GroupController.store);
 routes.get('/group', GroupController.index);
+routes.post('/group/student', StudentGroupController.store);
+routes.get('/group/student/:student_id', StudentGroupController.index);
 
 routes.post('/files', upload.single('file'), FileController.store);
 

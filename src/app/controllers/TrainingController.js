@@ -15,7 +15,6 @@ class TrainingController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      executions: Yup.number(),
       exercises: Yup.array().of(
         Yup.object().shape({
           id: Yup.string().required(),

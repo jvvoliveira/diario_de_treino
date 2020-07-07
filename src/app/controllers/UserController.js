@@ -1,8 +1,24 @@
 import * as Yup from 'yup';
 import User from '../models/User';
-import File from "../models/File";
+import File from '../models/File';
 
 class UserController {
+  async index(req, res) {
+    const { user_id: userId } = req.params;
+
+    const user = await User.findByPk(userId, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json(user);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -66,15 +82,15 @@ class UserController {
 
     await user.update(req.body);
 
-    const {id, name, avatar} = await User.findByPk(req.userId, {
-      include:[
+    const { id, name, avatar } = await User.findByPk(req.userId, {
+      include: [
         {
           model: File,
           as: 'avatar',
-          attributes: ['id', 'path', 'url']
-        }
-      ]
-    })
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
 
     return res.json({ id, name, email, avatar });
   }
