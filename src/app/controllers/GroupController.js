@@ -31,6 +31,22 @@ class GroupController {
 
     return res.json(newGroup);
   }
+
+  async delete(req, res) {
+    const { groupId } = req.params;
+
+    const group = await Group.findByPk(groupId);
+
+    if (!group) {
+      return res.status(400).json({ error: 'This training group not exists' });
+    }
+
+    if (group.user_id !== req.userId) {
+      return res.status(400).json({ error: 'You do not have permission' });
+    }
+    await group.destroy();
+    return res.json(group);
+  }
 }
 
 export default new GroupController();

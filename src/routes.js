@@ -47,6 +47,7 @@ routes.get('/exercises/:training', ExercisesTrainingsController.index);
 
 routes.post('/group', GroupController.store);
 routes.get('/group', GroupController.index);
+routes.delete('/group/:groupId', GroupController.delete);
 routes.post('/group/student', StudentGroupController.store);
 routes.get('/group/student/:student_id', StudentGroupController.index);
 
